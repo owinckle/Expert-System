@@ -1,0 +1,8 @@
+# Do not use double quotes (") as a condition
+
+### conditions
+set implies	= "=>"
+set and		= "+"
+set neg		= "!"
+set or		= "|"
+set xor		= "^"

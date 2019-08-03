@@ -1,0 +1,8 @@
+A + B = C	# If A and B then C
+A | B = D	# If A or B then D
+A ^ B = E	# If A xor B then E
+A + !B = F	# If A and not B then F
+
+=AB
+
+?CDEFA
