@@ -5,4 +5,4 @@ A + !B = F	# If A and not B then F
 
 =AB
 
-?CDEFA
+?CDEF
