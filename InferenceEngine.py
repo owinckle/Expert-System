@@ -1,6 +1,6 @@
 from Parse import parse
 import string
-from Utils import error
+from Utils import error, normalize
 
 class InferenceEngine():
 	def __init__(self, config):
@@ -24,14 +24,31 @@ class InferenceEngine():
 				if f in r.split("=")[1]:
 					error("facts: [%c] cannot be defined in a rule [%s]" % (f, r))
 
-	def _solve_rules(self, rules):
+	def _solve_conditions(self, facts, ops):
+		n_fact	= len(facts)
+		n_ops	= len(ops)
+		result	= 0
+
+		if self.data[facts[0]] != 0 and self.data[facts[1]] != 0:
+			if ops[0] == "+":
+				res = self.data[facts[0]] + self.data[facts[1]]
+				res = normalize(res)
+				print(res)
+				exit()
+
+	def _get_conditions(self, rules):
 		for r in rules:
+			ops = []
+			facts = []
 			for i, rr in enumerate(r):
 				if rr.isalpha():
 					if r[i - 1] == "!":
-						print("!" + rr)
+						facts.append("!" + rr)
 					else:
-						print(rr)
+						facts.append(rr)
+				else:
+					ops.append(rr)
+			self._solve_conditions(facts, ops)
 					
 
 	def expertise(self):
@@ -39,7 +56,7 @@ class InferenceEngine():
 			rules = []
 			print("Current Query: %c" %(q))
 			for r in self.rules:
-				if q in r.split("=")[1]:
-					rules.append(r)
-			self._solve_rules(rules)
+				if q in r.split("=>")[1]:
+					rules.append(r.split("=>")[0])
+			self._get_conditions(rules)
 			

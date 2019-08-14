@@ -20,3 +20,10 @@ def content_between(s, c):
 def get_qf(s, c):
 	s = re.sub('[\s]', '', s)
 	return s.split(c)[1]
+
+def normalize(n):
+	if n > 0:
+		n = 1
+	elif n < 0:
+		n = -1
+	return n
