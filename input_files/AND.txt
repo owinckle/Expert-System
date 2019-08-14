@@ -1,0 +1,8 @@
+A + B => C		# If A and B then C
+A + C => D		# If A and C then D
+Y + A => X		# If Y and A then X
+A + B + E => F	# If A and B and E then F
+
+=AB
+
+?CDXF

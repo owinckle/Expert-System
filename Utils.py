@@ -22,8 +22,8 @@ def get_qf(s, c):
 	return s.split(c)[1]
 
 def normalize(n):
-	if n > 0:
+	if n > 1:
 		n = 1
-	elif n < 0:
+	else:
 		n = -1
 	return n

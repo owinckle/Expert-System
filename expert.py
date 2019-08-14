@@ -10,6 +10,7 @@ def main():
 	Expert	= InferenceEngine(config)
 
 	Expert.expertise()
+	Expert.results()
 
 	# print(Expert.data)
 	# print(Expert.queries)

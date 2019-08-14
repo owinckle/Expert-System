@@ -24,19 +24,22 @@ class InferenceEngine():
 				if f in r.split("=")[1]:
 					error("facts: [%c] cannot be defined in a rule [%s]" % (f, r))
 
-	def _solve_conditions(self, facts, ops):
+	def _solve_conditions(self, facts, ops, query):
 		n_fact	= len(facts)
 		n_ops	= len(ops)
 		result	= 0
 
-		if self.data[facts[0]] != 0 and self.data[facts[1]] != 0:
-			if ops[0] == "+":
-				res = self.data[facts[0]] + self.data[facts[1]]
-				res = normalize(res)
+		if ops[0] == "+":
+			res = self.data[facts[0]] + self.data[facts[1]]
+			res = normalize(res)
+		for i, op in enumerate(ops[1:]):
+			if op == "+":
 				print(res)
-				exit()
+				res = res + self.data[facts[i + 2]]
+				res = normalize(res)
+		self.data[query] = res
 
-	def _get_conditions(self, rules):
+	def _get_conditions(self, rules, query):
 		for r in rules:
 			ops = []
 			facts = []
@@ -48,15 +51,20 @@ class InferenceEngine():
 						facts.append(rr)
 				else:
 					ops.append(rr)
-			self._solve_conditions(facts, ops)
+			self._solve_conditions(facts, ops, query)
 					
+	def results(self):
+		for q in self.queries:
+			if self.data[q] == 1:
+				print("\033[1;32;40m %c" % (q))
+			else:
+				print("\033[1;31;40m %c" % (q))
 
 	def expertise(self):
 		for q in self.queries:
 			rules = []
-			print("Current Query: %c" %(q))
+			#print("Current Query: %c" %(q))
 			for r in self.rules:
 				if q in r.split("=>")[1]:
 					rules.append(r.split("=>")[0])
-			self._get_conditions(rules)
-			
+			self._get_conditions(rules, q)
