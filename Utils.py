@@ -27,3 +27,10 @@ def normalize(n):
 	else:
 		n = -1
 	return n
+
+def rule_parser(rule):
+	parsed = []
+	for c in rule:
+		if c.isalpha():
+			parsed.append(c)
+	return parsed
